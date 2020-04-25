@@ -1,4 +1,5 @@
-import React from 'react';
+import React fromm
+ 'react';
 
 const FaceRecognition = ({ImageUrl}) => {
     return (
