@@ -1,0 +1,94 @@
+import React, {Component} from 'react';
+import './App.css';
+import Navigation from './components/Navigation/Navigation.js';
+import SignIn from './components/SignIn/SignIn.js';
+import Logo from './components/Logo/Logo.js';
+import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm.js';
+import Particles from 'react-particles-js';
+import Rank from './components/Rank/Rank.js';
+import Clarifai from 'clarifai';
+import FaceRecognition from './components/FaceRecognition/FaceRecognition.js'
+
+const app = new Clarifai.App({
+  apiKey: '0dd483b0a2f14d2f8a6ddf375a9396a1'
+ });
+
+const particlesParams = {
+  "particles": {
+      "number": {
+          "value": 60,
+          "density": {
+            "enable": true,
+            "value_area": 800
+
+          }
+      },
+      "size": {
+          "value": 2
+      }
+  }
+}
+
+class App extends Component {
+
+  constructor(){
+    super();
+    this.state = {
+      input:'',
+      imageUrl:'',
+      route: 'SignIn'
+    }
+  }
+
+  onInputChange = (event) => {
+    this.setState({input: event.target.value});
+
+  }
+
+  onButtonSubmitF = () => {
+    this.setState({imageUrl:this.state.input});
+    app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input).then(
+    function(response) {
+      console.log(response.outputs[0].data.regions[0].region_info.bounding_box)
+    },
+    function(err) {
+      // there was an error
+    }
+    );
+  }
+
+  onRouteChangeF =  (route) => {
+    this.setState({route: route});
+
+  }
+
+  
+
+  render(){
+
+    return (
+      <div className="App">
+  
+        <Particles
+        className = "particles"
+        params={particlesParams} />
+        <Navigation  onRouteChange = {this.onRouteChangeF}/>
+        <Logo />
+        <Rank />
+        <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmitF} />
+        <FaceRecognition ImageUrl={this.state.imageUrl} />
+         { 
+
+        this.state.route === 'Home' ? "" : <SignIn onRouteChange={this.onRouteChangeF}/>
+            
+
+         }
+      </div>
+    );
+  
+
+  }
+  
+}
+
+export default App;
