@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './App.css';
 import Navigation from './components/Navigation/Navigation.js';
 import SignIn from './components/SignIn/SignIn.js';
+import SignUp from './components/SignUp/SignUp.js';
 import Logo from './components/Logo/Logo.js';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm.js';
 import Particles from 'react-particles-js';
@@ -87,13 +88,21 @@ class App extends Component {
         className = "particles"
         params={particlesParams} />
         <Navigation  onRouteChange = {this.onRouteChangeF}/>
+        
+         { 
+
+        this.state.route === 'Home' ?  
+        <div> 
         <Logo />
         <Rank />
         <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmitF} />
         <FaceRecognition Box={this.state.box} ImageUrl={this.state.imageUrl} />
-         { 
-
-        this.state.route === 'Home' ? "" : <SignIn onRouteChange={this.onRouteChangeF}/>
+        </div>
+        
+        : (
+          this.state.route === 'SignIn' ? <SignIn onRouteChange={this.onRouteChangeF}/>
+          : <SignUp onRouteChange={this.onRouteChangeF}/>          
+          )
             
 
          }
