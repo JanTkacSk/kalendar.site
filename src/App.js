@@ -38,7 +38,8 @@ class App extends Component {
       input:'',
       imageUrl:'',
       box: {},
-      route: 'SignIn'
+      route: 'SignIn',
+      IsSignedIn: false
     }
   }
 
@@ -74,7 +75,13 @@ class App extends Component {
   }
 
   onRouteChangeF =  (route) => {
+    if (route === 'SignIn'){
+      this.setState({IsSignedIn: false});
+    } else if (route === 'Home') {
+      this.setState({IsSignedIn: true});
+    }
     this.setState({route: route});
+    
 
   }
 
@@ -87,7 +94,7 @@ class App extends Component {
         <Particles
         className = "particles"
         params={particlesParams} />
-        <Navigation  onRouteChange = {this.onRouteChangeF}/>
+        <Navigation IsSignedIn={this.state.IsSignedIn}  onRouteChange = {this.onRouteChangeF}/>
         
          { 
 
