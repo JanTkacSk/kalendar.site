@@ -50,6 +50,7 @@ class SignIn extends React.Component {
                             type="email" 
                             name="email-address"  
                             id="email-address"
+                            autoComplete="current-email"
                             onChange={this.onEmailChange} />
                         </div>
                         <div className="mv3">
@@ -59,6 +60,7 @@ class SignIn extends React.Component {
                             type="password" 
                             name="password"  
                             id="password" 
+                            autoComplete="current-password"
                             onChange={this.onPasswordChange}/>
                         </div>
                         <label className="pa0 ma0 lh-copy f6 pointer"><input type="checkbox" /> Remember me</label>
