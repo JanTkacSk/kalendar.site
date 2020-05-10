@@ -97,7 +97,7 @@ class App extends Component {
     .catch(err => console.log(err));
     fetch('http://localhost:3000/image',{
         method: 'put',
-        headers: {'Content-Type': 'applicatin/json'},
+        headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
         id: this.state.user.id
         })
