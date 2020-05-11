@@ -30,6 +30,23 @@ const particlesParams = {
   }
 }
 
+const initialState = {
+  input:'',
+  imageUrl:'',
+  box: {},
+  route: 'SignIn',
+  IsSignedIn: false,
+  user: {
+    id: '',
+    name: '',
+    email: '',
+    password: '',
+    entries:'',
+    joined: ''
+
+}
+}
+
 class App extends Component {
 
   constructor(){
@@ -106,12 +123,12 @@ class App extends Component {
     .then(count => {
       this.setState(Object.assign(this.state.user,{entries: count}))
       // console.log(count);
-    })
+    }).catch(err => console.log(err));
   }
 
   onRouteChangeF =  (route) => {
     if (route === 'SignIn'){
-      this.setState({IsSignedIn: false});
+      this.setState(initialState);
     } else if (route === 'Home') {
       this.setState({IsSignedIn: true});
     }
